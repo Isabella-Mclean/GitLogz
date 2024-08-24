@@ -18,7 +18,7 @@ code {
 }
 
 
-.App {
+.mainApp {
   max-width: 100vw;
   min-width: 100vw;
   min-height: 100vh;
@@ -31,7 +31,7 @@ code {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
-.Stack{
+.stackContainer{
   min-width: fit-content;
   max-width: 100vw;
   min-height: fit-content;
@@ -44,7 +44,7 @@ code {
 
 }
 
-.AppHeader {
+.appHeader {
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@ code {
   margin-bottom: 16px;
 }
 
-.Description{
+.description{
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -71,31 +71,31 @@ code {
 .gridContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center ;
   align-content: center;
-  margin: 0 auto;
-  max-width: 75vw;
-  max-height: 50vh;
+  margin-left: 20vw;
+  margin-top: 5vh;
+  max-width: 80vw;
   padding-left: 10vw;
   
 }
 
-.Card {
-  max-width: 20vw;
-  min-width: 20vw;
-  min-height: 20vh;
-  max-height: 20vh;
-  background-color: rgb(55, 63, 84);
-  color: #ffffff;
-  box-shadow: 0px 8px 24px rgba(64, 87, 132, 0.268); 
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex: 1 1 200px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  margin: 16px;
+.featureCard{
+  max-width: 20vw !important;
+  min-width: 20vw !important;
+  min-height: 20vh !important;
+  max-height: 20vh !important;
+  background-color: rgb(55, 63, 84) !important;
+  color: #ffffff !important;
+  box-shadow: 0px 8px 24px rgba(64, 87, 132, 0.268) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  display: flex !important;
+  flex: 1 1 200px !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 16px !important;
+  margin: 16px !important;
   
 }
 
@@ -105,27 +105,33 @@ code {
   font-family: 'Inter', Arial, Helvetica, sans-serif; /* Apply Inter font */
 }
 
+.shootingStars, .starsBackground {
+  pointer-events: none;
+}
+
 
 /* Responsive card styles */
 @media (max-width: 768px) {
-  .Card {
-    flex-direction: column;
-    align-items: center;
-    min-width: 80vw;
+  .featureCard {
+    width: 100%;
     max-width: 300px;
-    margin: 8px 0;
+    justify-content: center;
+    align-items: center;
+    flex: content;
+    display: flex;
   }
 
-  .AppHeader {
+  .cardText{
+    font-size: small;
+  }
+
+  .appHeader {
     font-size: 30px; /* Adjust font size on smaller screens */
   }
 
-  .Description {
+  .description {
     font-size: 20px; /* Adjust font size on smaller screens */
   }
-  .gridContainer {
-    flex-direction: column;
-    padding: 0; /* Remove padding on smaller screens */
-  }
+  
 }
 

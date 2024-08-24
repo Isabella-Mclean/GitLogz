@@ -1,18 +1,17 @@
 'use client'
-import styles from './App.module.css';
+import styles from './css/App.module.css';
 import { React, useEffect,useState } from 'react';
 import { ShootingStars } from "./components/ui/shooting-stars.tsx";
 import { StarsBackground } from "./components/ui/stars-background.tsx";
 import { doc, collection, getDoc, setDoc } from "firebase/firestore"; 
 import {db} from "./firebase.js"
-import {Box, Typography, Stack, AppBar, Toolbar, Button, Grid, Card, CardContent, useTheme,Snackbar, Alert} from '@mui/material';
+import {Box, Typography, Stack, AppBar, Toolbar, Button, Grid, Card, CardContent,Snackbar, Alert} from '@mui/material';
 
 function App() {
   const [email, setEmail] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-  const theme = useTheme();
 
   useEffect(() => {
     fetch('/api/hello')
@@ -51,11 +50,11 @@ function App() {
   const handleSnackbarClose = () => setSnackbarOpen(false);
 
   return (
-    <Box className={styles.App}>
-      <ShootingStars/>
-      <StarsBackground/>
+    <Box className={styles.mainApp}>
+      <ShootingStars className={styles.shootingStars}/>
+      <StarsBackground className={styles.starsBackground}/>
       <Box className={styles.App}>
-      <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }}>
+      {/**<AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }}>
           <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
             <Button variant="text" className="Button">
                 <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Sign in</Typography>
@@ -64,12 +63,12 @@ function App() {
                 <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Log in</Typography>
             </Button>
           </Toolbar>
-        </AppBar>
-      <Stack direction={'column'} spacing={2} className={styles.Stack}>
-        <Typography className={styles.AppHeader} style={{fontSize:"70px"}}>
+        </AppBar>*/}
+      <Stack direction={'column'} spacing={2} className={styles.stackContainer}>
+        <Typography className={styles.appHeader} style={{fontSize:"70px"}}>
         GitLogz
         </Typography>
-        <Typography className={styles.Description} style={{fontSize:"30px"}}>
+        <Typography className={styles.description} style={{fontSize:"30px"}}>
         Monitor, Analyze, Improve: Your Code Quality, Simplified
         </Typography>
         {/* Email Input and Button in the same container */}
@@ -94,8 +93,8 @@ function App() {
                   border: 'none',  
                   borderRadius: '50px 0 0 50px',
                   outline: 'none',
-                  background: 'white',
-                  color: '#BA6AE0',
+                  background: 'transparent',
+                  color: '#9FA7D4',
                   width: '250px', 
                 }}
               />
@@ -130,9 +129,9 @@ function App() {
               {snackbarMessage}
             </Alert>
           </Snackbar>
-        <Grid container className={styles.gridContainer} >
+        <Grid container className={styles.gridContainer}>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <Card className={styles.Card}  sx={{ padding:1}}>  
+            <Card className={styles.featureCard} >  
               <CardContent>
                 <Typography className={styles.cardText}>
                   Automated code analysis, triggered by commits and pull requests
@@ -141,7 +140,7 @@ function App() {
             </Card>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card className={styles.Card}  sx={{ padding: 1}}>
+              <Card className={styles.featureCard}  sx={{ padding: 1}}>
                 <CardContent >
                   <Typography className={styles.cardText}>
                     Rest assured, you will be alerted when your code quality degrades
@@ -150,7 +149,7 @@ function App() {
               </Card>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card className={styles.Card} sx={{ padding:1}}>
+              <Card className={styles.featureCard} sx={{ padding:1}}>
                 <CardContent>
                   <Typography className={styles.cardText}>
                     Powered by SonarQube, a leader in code analysis
@@ -159,7 +158,7 @@ function App() {
               </Card>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card className={styles.Card} sx={{ padding: 1}}>
+              <Card className={styles.featureCard} sx={{ padding: 1}}>
                 <CardContent>
                   <Typography className={styles.cardText}>
                     Robust data storage, so you can revise previous qualities
