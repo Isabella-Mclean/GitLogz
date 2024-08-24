@@ -5,13 +5,14 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from './pages/Layout';
 
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
