@@ -1,0 +1,36 @@
+.mainApp {
+    max-width: 100vw;
+    min-width: 100vw;
+    min-height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(26, 29, 37);
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+  }
+
+.topNavbar{
+    background-color: #0F1117;
+    position: fixed;
+    max-height: 10vh;
+    color: brown;
+}
+
+.bottomNavbar{
+    background-color: transparent;
+    position: fixed;
+    margin-top: 10vh;;
+    max-height: 10vh;
+
+}
+
+.analysis{
+    background-color:#9FA7D4;
+    margin-top: 20vh;
+    max-height: 80vh;
+    min-height: 80vh;
+    min-width: 100vw;
+    max-width: 100vw;
+}

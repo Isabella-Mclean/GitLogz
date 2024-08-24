@@ -52,7 +52,7 @@ function Home() {
         {/**Setting the background provided by Acerternity */}
         <ShootingStars className={styles.shootingStars}/>
         <StarsBackground className={styles.starsBackground}/>
-        <Box className={styles.App}>
+        <Box>
         <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }}>
             <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
               <Button variant="text" className="Button">
