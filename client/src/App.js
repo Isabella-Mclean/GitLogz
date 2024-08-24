@@ -1,24 +1,60 @@
 'use client'
 import styles from './App.module.css';
-import { React, useEffect } from 'react';
+import { React, useEffect,useState } from 'react';
 import { ShootingStars } from "./components/ui/shooting-stars.tsx";
 import { StarsBackground } from "./components/ui/stars-background.tsx";
-import {Box, Typography, Stack, AppBar, Toolbar, Button, Grid, Card, CardContent, useTheme} from '@mui/material';
+import { doc, collection, getDoc, setDoc } from "firebase/firestore"; 
+import {db} from "./firebase.js"
+import {Box, Typography, Stack, AppBar, Toolbar, Button, Grid, Card, CardContent, useTheme,Snackbar, Alert} from '@mui/material';
 
 function App() {
+  const [email, setEmail] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const theme = useTheme();
+
   useEffect(() => {
     fetch('/api/hello')
         .then(response => response.json())
         .then(data => console.log(data));
   }, []);
 
-  const theme = useTheme();
+  const handleEmailChange = (e) => setEmail(e.target.value);
 
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      setSnackbarMessage("Please enter a valid email.");
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    const docRef = doc(collection(db, 'users'), email);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setSnackbarMessage("You are already on the waitlist.");
+      setSnackbarSeverity('warning');
+      setSnackbarOpen(true);
+    } else {
+      await setDoc(docRef, { email });
+      setSnackbarMessage("You have been added to the waitlist!");
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      setEmail('');  // Clear the input field
+    }
+  };
+
+  const handleSnackbarClose = () => setSnackbarOpen(false);
 
   return (
     <Box className={styles.App}>
       <ShootingStars/>
       <StarsBackground/>
+      <Box className={styles.App}>
       <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }}>
           <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
             <Button variant="text" className="Button">
@@ -36,9 +72,67 @@ function App() {
         <Typography className={styles.Description} style={{fontSize:"30px"}}>
         Monitor, Analyze, Improve: Your Code Quality, Simplified
         </Typography>
+        {/* Email Input and Button in the same container */}
+        <Box marginBottom={30}>
+        <form onSubmit={handleFormSubmit} 
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            marginBottom: '20px', 
+            marginTop:"40px",
+            }}>
+            <div style={{ display: 'flex', alignItems: 'center', borderRadius: '50px', border: '2px solid #9FA7D4' }}>
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                value={email} 
+                onChange={handleEmailChange}
+                style={{
+                  padding: '15px 15px 15px 20px',
+                  fontSize: '15px',
+                  border: 'none',  
+                  borderRadius: '50px 0 0 50px',
+                  outline: 'none',
+                  background: 'white',
+                  color: '#BA6AE0',
+                  width: '250px', 
+                }}
+              />
+              <button 
+                type="submit" 
+                style={{
+                  padding: '10px 20px',  
+                  fontSize: '12px',
+                  border: 'none',
+                  borderRadius: '50px',  
+                  background: '#9FA7D4',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'background 0.3s ease',
+                  marginLeft: '-10px',  // Move button slightly to the left
+                  transform: 'translateX(-10px)'  // Shifts the whole container 20px to the left
+                }}
+              >
+                Join Waitlist
+              </button>
+            </div>
+          </form>
+          </Box>
+          {/* Snackbar for notifications */}
+          <Snackbar 
+            open={snackbarOpen} 
+            autoHideDuration={5000} 
+            onClose={handleSnackbarClose}
+          >
+            <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+              {snackbarMessage}
+            </Alert>
+          </Snackbar>
         <Grid container className={styles.gridContainer} >
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <Card className={styles.Card}  sx={{ padding: theme.spacing(1) }}>  
+            <Card className={styles.Card}  sx={{ padding:1}}>  
               <CardContent>
                 <Typography className={styles.cardText}>
                   Automated code analysis, triggered by commits and pull requests
@@ -47,7 +141,7 @@ function App() {
             </Card>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card className={styles.Card}  sx={{ padding: theme.spacing(1) }}>
+              <Card className={styles.Card}  sx={{ padding: 1}}>
                 <CardContent >
                   <Typography className={styles.cardText}>
                     Rest assured, you will be alerted when your code quality degrades
@@ -56,7 +150,7 @@ function App() {
               </Card>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card className={styles.Card} sx={{ padding: theme.spacing(1) }}>
+              <Card className={styles.Card} sx={{ padding:1}}>
                 <CardContent>
                   <Typography className={styles.cardText}>
                     Powered by SonarQube, a leader in code analysis
@@ -65,7 +159,7 @@ function App() {
               </Card>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Card className={styles.Card} sx={{ padding: theme.spacing(1) }}>
+              <Card className={styles.Card} sx={{ padding: 1}}>
                 <CardContent>
                   <Typography className={styles.cardText}>
                     Robust data storage, so you can revise previous qualities
@@ -74,9 +168,8 @@ function App() {
               </Card>
             </Grid>
         </Grid>
-
-        
       </Stack>
+      </Box>
     </Box>
   );
 }
