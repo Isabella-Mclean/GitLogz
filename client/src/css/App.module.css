@@ -18,22 +18,20 @@ code {
 }
 
 
-.App {
+.mainApp {
   max-width: 100vw;
   min-width: 100vw;
   min-height: 100vh;
-  max-height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: rgb(26, 29, 37);
   font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
-
-.Stack{
+.stackContainer{
   min-width: fit-content;
   max-width: 100vw;
   min-height: fit-content;
@@ -41,10 +39,12 @@ code {
   display: flex;
   justify-content: center;
   align-content: center;
+  padding: 0 16px;
+  margin-top: 10vh;
 
 }
 
-.AppHeader {
+.appHeader {
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -52,11 +52,11 @@ code {
   justify-content: center;
   font-size: large;
   color: rgb(255, 255, 255);
-  margin-bottom: 5;
   font-size: 40px;
+  margin-bottom: 16px;
 }
 
-.Description{
+.description{
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -64,41 +64,38 @@ code {
   justify-content: center;
   color: rgb(255, 255, 255);
   font-size: 30px;
+  margin-bottom: 32px;
 }
 
 
 .gridContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center ;
   align-content: center;
-  margin: 0 auto;
-  max-width: 75vw;
-  max-height: 50vh;
+  margin-left: 20vw;
+  margin-top: 5vh;
+  max-width: 80vw;
   padding-left: 10vw;
+  
 }
 
-.gridContainer > .MuiGrid-item {
-  flex: 1 1 300px; /* Allow items to grow and shrink */
-  max-width: 100%; /* Ensure items do not overflow */
-}
-
-.Card {
-  max-width: 20vw;
-  min-width: 20vw;
-  min-height: 20vh;
-  max-height: 20vh;
-  background-color: rgb(55, 63, 84); /* Dark background for contrast */
-  color: #ffffff; /* White text for readability */
-  box-shadow: 0px 8px 24px rgba(64, 87, 132, 0.268); /* Enhanced shadow */
-  border-radius: 40; /* Slightly rounded corners */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  margin: 16px;
+.featureCard{
+  max-width: 20vw !important;
+  min-width: 20vw !important;
+  min-height: 20vh !important;
+  max-height: 20vh !important;
+  background-color: rgb(55, 63, 84) !important;
+  color: #ffffff !important;
+  box-shadow: 0px 8px 24px rgba(64, 87, 132, 0.268) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  display: flex !important;
+  flex: 1 1 200px !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 16px !important;
+  margin: 16px !important;
   
 }
 
@@ -108,20 +105,33 @@ code {
   font-family: 'Inter', Arial, Helvetica, sans-serif; /* Apply Inter font */
 }
 
+.shootingStars, .starsBackground {
+  pointer-events: none;
+}
+
 
 /* Responsive card styles */
 @media (max-width: 768px) {
-  .Card {
-    max-width: 90vw; /* Adjust width on smaller screens */
-    min-width: 90vw;
+  .featureCard {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+    align-items: center;
+    flex: content;
+    display: flex;
   }
 
-  .AppHeader {
+  .cardText{
+    font-size: small;
+  }
+
+  .appHeader {
     font-size: 30px; /* Adjust font size on smaller screens */
   }
 
-  .Description {
+  .description {
     font-size: 20px; /* Adjust font size on smaller screens */
   }
+  
 }
 
