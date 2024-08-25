@@ -17,7 +17,7 @@ function Home() {
   
   const handleEmailChange = (e) => setEmail(e.target.value);
 
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect,isLoading,isAuthenticated,logout } = useAuth0();
   
 
   {/* Handles the submission of user emails for the waitlist */}
@@ -59,9 +59,18 @@ function Home() {
         <Box>
         <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }} >
             <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
-              <Button variant="text" onClick={() => loginWithRedirect()}>
+              {/**Replace the navbar with a logout button if they are already logged in */}
+              {(!isLoading && !isAuthenticated)?(
+                <Button variant="text" onClick={() => loginWithRedirect()}>
                   <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Log in / Sign up</Typography>
-              </Button>
+                </Button>
+              ):(
+                <Box>
+                  <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                    Log out
+                  </Button>
+                </Box>
+              )} 
             </Toolbar>
           </AppBar>
         <Stack direction={'column'} spacing={2} className={styles.stackContainer}>
