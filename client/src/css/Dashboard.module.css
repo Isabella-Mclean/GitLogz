@@ -25,19 +25,19 @@ a.mainApp {
 
 .bottomNavbar {
     position: fixed;
-    top: 10vh;
+    top: 8vh;
     width: 100vw;
     height: 12vh;
     display: flex;
     align-items: flex-start;
-    background-color: #333a4d;
+    background-color: whitesmoke;
     padding-left: 2vw;
-    padding-top: 7px;
-    margin-top: auto;
+    padding-top: 10px;
+    margin-top: 0;
     box-shadow: 0px 2px 4px #080a0fc2;
 }
 
-.dropDown{
+.dropDown {
     min-width: 20vw;
     max-height: 10vh;
     margin-bottom: 7px;
@@ -45,12 +45,14 @@ a.mainApp {
 
 
 .bootstrapInputLabel {
-    color: white; /* White label text */
+    color: white;
+    /* White label text */
 }
 
 
 .bootstrapInputLabel:focus {
-    color: white; /* White label text */
+    color: white;
+    /* White label text */
 }
 
 
@@ -65,7 +67,7 @@ a.mainApp {
 }
 
 .dashboardTitle {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
     margin-top: 10px;
@@ -104,7 +106,7 @@ a.mainApp {
 
 
 @media (max-width: 1000px) {
-    .card{
+    .card {
         width: 40vw;
         margin-left: 5vw;
     }
@@ -112,7 +114,7 @@ a.mainApp {
 
 
 @media (max-width: 768px) {
-    .card{
+    .card {
         width: 80vw;
         margin-left: 5vw;
     }

@@ -57,7 +57,7 @@ function Home() {
         <ShootingStars className={styles.shootingStars}/>
         <StarsBackground className={styles.starsBackground}/>
         <Box>
-        <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }}>
+        <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }} >
             <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
               <Button variant="text" >
                   <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Sign up</Typography>
