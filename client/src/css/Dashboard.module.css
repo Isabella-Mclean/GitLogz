@@ -16,7 +16,7 @@ a.mainApp {
     position: fixed;
     top: 0;
     width: 100vw;
-    max-height: 10vh;
+    max-height: 8vh;
     color: white;
     display: flex;
     align-items: flex-start;

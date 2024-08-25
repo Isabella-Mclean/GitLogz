@@ -59,11 +59,8 @@ function Home() {
         <Box>
         <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }} >
             <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
-              <Button variant="text" >
-                  <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Sign up</Typography>
-              </Button>
               <Button variant="text" onClick={() => loginWithRedirect()}>
-                  <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Log in</Typography>
+                  <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Log in / Sign up</Typography>
               </Button>
             </Toolbar>
           </AppBar>
