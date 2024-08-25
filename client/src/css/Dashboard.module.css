@@ -1,4 +1,4 @@
-.mainApp {
+a.mainApp {
     max-width: 100vw;
     min-width: 100vw;
     min-height: 100vh;
@@ -9,28 +9,111 @@
     justify-content: flex-start;
     background-color: rgb(26, 29, 37);
     font-family: 'Inter', Arial, Helvetica, sans-serif;
-  }
-
-.topNavbar{
-    background-color: #0F1117;
-    position: fixed;
-    max-height: 10vh;
-    color: brown;
 }
 
-.bottomNavbar{
-    background-color: transparent;
+.topNavbar {
+    background-color: #080a0f !important;
     position: fixed;
-    margin-top: 10vh;;
+    top: 0;
+    width: 100vw;
     max-height: 10vh;
-
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    padding-left: 2vw;
 }
 
-.analysis{
-    background-color:#9FA7D4;
+.bottomNavbar {
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    height: 12vh;
+    display: flex;
+    align-items: flex-start;
+    background-color: #333a4d;
+    padding-left: 2vw;
+    padding-top: 7px;
+    margin-top: auto;
+    box-shadow: 0px 2px 4px #080a0fc2;
+}
+
+.dropDown{
+    min-width: 20vw;
+    max-height: 10vh;
+    margin-bottom: 7px;
+}
+
+
+.bootstrapInputLabel {
+    color: white; /* White label text */
+}
+
+
+.bootstrapInputLabel:focus {
+    color: white; /* White label text */
+}
+
+
+
+.analysis {
+    background-color: #9FA7D4;
     margin-top: 20vh;
-    max-height: 80vh;
     min-height: 80vh;
     min-width: 100vw;
-    max-width: 100vw;
+    padding: 2% 5%;
+    box-sizing: border-box;
+}
+
+.dashboardTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.gridContainer {
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #f8f8efa9;
+    height: 25vh;
+    width: 20vw;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    padding-top: 5px;
+    border-radius: 20px;
+    font-size: medium;
+    box-shadow: 0px 2px 4px #080a0fa9;
+}
+
+.kpiCard {
+    background-color: #f8f8ef97;
+    margin-top: 20px;
+    box-shadow: 0px 2px 4px #080a0fa9;
+}
+
+.kpiGraph {
+    height: 200px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 1000px) {
+    .card{
+        width: 40vw;
+        margin-left: 5vw;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .card{
+        width: 80vw;
+        margin-left: 5vw;
+    }
 }
