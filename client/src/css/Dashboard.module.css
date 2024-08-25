@@ -1,4 +1,4 @@
-a.mainApp {
+.mainApp {
     max-width: 100vw;
     min-width: 100vw;
     min-height: 100vh;
@@ -6,8 +6,7 @@ a.mainApp {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    background-color: rgb(26, 29, 37);
+    background-color: #9FA7D4;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
@@ -15,22 +14,26 @@ a.mainApp {
     background-color: #080a0f !important;
     position: fixed;
     top: 0;
-    width: 100vw;
-    max-height: 8vh;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 7vh;
     color: white;
     display: flex;
-    align-items: flex-start;
+    align-items: center !important;
+    justify-content: space-between !important;
     padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 .bottomNavbar {
     position: fixed;
-    top: 8vh;
-    width: 100vw;
+    top: 12vh;
+    width: 50vw;
     height: 12vh;
     display: flex;
     align-items: flex-start;
-    background-color: whitesmoke;
+    background-color: rgba(255, 255, 255, 0.701);
+    border-radius: 20px;
     padding-left: 2vw;
     padding-top: 10px;
     margin-top: 0;
@@ -43,20 +46,6 @@ a.mainApp {
     margin-bottom: 7px;
 }
 
-
-.bootstrapInputLabel {
-    color: white;
-    /* White label text */
-}
-
-
-.bootstrapInputLabel:focus {
-    color: white;
-    /* White label text */
-}
-
-
-
 .analysis {
     background-color: #9FA7D4;
     margin-top: 20vh;
@@ -67,11 +56,11 @@ a.mainApp {
 }
 
 .dashboardTitle {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: 10px;
-    text-align: left;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
+    margin-top: 10px !important;
+    text-align: left !important;
 }
 
 .gridContainer {
@@ -79,23 +68,24 @@ a.mainApp {
 }
 
 .card {
-    background-color: #f8f8efa9;
+    background-color: #ffffff !important;  
     height: 25vh;
     width: 20vw;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     text-align: center;
-    padding-top: 5px;
-    border-radius: 20px;
+    padding-top: 5px !important;
+    border-radius: 20px !important;
     font-size: medium;
-    box-shadow: 0px 2px 4px #080a0fa9;
+    box-shadow: 0px 2px 4px #080a0fa9 !important;
 }
 
 .kpiCard {
-    background-color: #f8f8ef97;
-    margin-top: 20px;
-    box-shadow: 0px 2px 4px #080a0fa9;
+    background-color: #f8f8ef97 !important;
+    margin-top: 20px !important;
+    box-shadow: 0px 2px 4px #080a0fa9 !important;
+    border-radius: 20px !important;
 }
 
 .kpiGraph {
@@ -105,15 +95,15 @@ a.mainApp {
 }
 
 
-@media (max-width: 1000px) {
+
+@media (max-width: 768px) {
     .card {
         width: 40vw;
         margin-left: 5vw;
     }
 }
 
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .card {
         width: 80vw;
         margin-left: 5vw;

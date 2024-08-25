@@ -7,12 +7,15 @@ import { doc, collection, getDoc, setDoc } from "firebase/firestore";
 import {db} from "../firebase.js"
 import {Box, Typography, Stack, AppBar, Toolbar, Button, Grid, Card, CardContent,Snackbar, Alert} from '@mui/material';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from 'react-router-dom';
+
 
 function Home() {
   const [email, setEmail] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const navigate = useNavigate();
 
   
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -66,6 +69,9 @@ function Home() {
                 </Button>
               ):(
                 <Box>
+                  <Button onClick={() => navigate('/dashboard')}>
+                    Dashboard
+                  </Button>
                   <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                     Log out
                   </Button>

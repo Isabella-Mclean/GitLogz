@@ -33,10 +33,12 @@ function Dashboard() {
     return (
         <Box className={styles.mainApp}>
             {/** Navbar at the top of the window */}
-            <AppBar position="fixed" className={styles.topNavbar}>
-                <Toolbar sx={{ justifyContent: 'flex-start', pl: 2 }}>
-                    <Typography>GitLogz</Typography>
-                    <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+            <AppBar>
+                <Toolbar className={styles.topNavbar}>
+                    <Button sx={{color:"white"}} onClick={() => navigate('/')}>
+                        GitLogz
+                    </Button>
+                    <Button sx={{color:"white"}} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                         Log out
                     </Button>
                 </Toolbar>
@@ -46,8 +48,16 @@ function Dashboard() {
             <Box className={styles.bottomNavbar}>
                 <Toolbar sx={{ justifyContent: 'flex-start', pl: 2 }}>
                     {/**Drop down menu for users to choose the repo they would like to view */}
-                    <FormControl className={styles.dropDown} style={{minWidth:"20vw", marginRight:"25px" }}>
-                        <InputLabel className={styles.bootstrapInputLabel}>Repository</InputLabel>
+                    <FormControl 
+                    className={styles.dropDown} 
+                    style={{
+                    minWidth:"20vw", 
+                    marginRight:"25px",
+                    }}>
+                        <InputLabel className={styles.bootstrapInputLabel}
+                        sx={{
+                            '&.MuiInputLabel-root':{color:"black"}
+                        }}>Repository</InputLabel>
                         <Select
                         value={repository}
                         label="Repository"
@@ -61,7 +71,11 @@ function Dashboard() {
 
                     {/**Drop down menu for users to input the branch they would like to view */}
                     <FormControl className={styles.dropDown} style={{minWidth:"20vw"}}>
-                        <InputLabel className={styles.bootstrapInputLabel}>Branch</InputLabel>
+                        <InputLabel className={styles.bootstrapInputLabel}
+                        sx={{
+                            '&.MuiInputLabel-root':{color:"black"}
+                        }}
+                        >Branch</InputLabel>
                         <Select
                         value={branch}
                         label="Branch"
