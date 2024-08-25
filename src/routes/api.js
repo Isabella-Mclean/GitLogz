@@ -55,31 +55,20 @@ router.post("/analyze", async (req, res) => {
   // Escape special characters in the URL to prevent issues in the shell command
   const escapedUrl = url.replace(/"/g, '\\"');
 
-  // Path to your Python script and virtual environment
-  const pythonScriptPath = path.join(__dirname, "..", "scraper", "main.py");
-  const venvPath = path.join(
+  // Path to the shell script
+  const shellScriptPath = path.join(
     __dirname,
     "..",
     "scraper",
-    ".venv",
-    "Scripts",
-    "activate.bat"
+    "run_python_script.sh"
   );
 
-  // Path to the commit history JSON file
-  const commitHistoryPath = path.join(
-    __dirname,
-    "..",
-    "scraper",
-    "commit_history.json"
-  );
-
-  // Command to activate virtual environment and run the Python script
-  const command = `cmd.exe /c "${venvPath} && python ${pythonScriptPath} ${escapedUrl}"`;
+  // Command to run the shell script with the repository URL
+  const command = `bash ${shellScriptPath} ${escapedUrl}`;
 
   console.log(`Running command: ${command}`);
 
-  // Run the Python script within the virtual environment
+  // Run the Python script within the virtual environment using the shell script
   runCommand(command, async (error, stdout, stderr) => {
     if (error) {
       console.error(`Execution error: ${error.message}`);
@@ -91,6 +80,14 @@ router.post("/analyze", async (req, res) => {
 
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
+
+    // Path to the commit history JSON file
+    const commitHistoryPath = path.join(
+      __dirname,
+      "..",
+      "scraper",
+      "commit_history.json"
+    );
 
     // Check if commit_history.json exists and read it
     if (fs.existsSync(commitHistoryPath)) {

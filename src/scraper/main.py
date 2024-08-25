@@ -155,6 +155,15 @@ def main():
     # Ensure the output file is in the correct directory
     output_file = os.path.join(os.path.dirname(__file__), 'commit_history.json')
 
+    print(os.getenv('SONAR_HOST_URL'))
+    print(os.getenv('SONAR_USER'))
+    print(os.getenv('SONAR_PASSWORD'))
+    print(os.getenv('SONAR_TOKEN'))
+    print(os.getenv('SONAR_PROJECT_KEY'))
+    print(os.getenv('SONAR_PROJECT_NAME'))
+    print(os.getenv('SONAR_PROJECT_VERSION'))
+    print(os.getenv('SONAR_SCANNER_PATH'))
+
     temp_dir = None
     try:
         repo_path, temp_dir = clone_repo(repo_url)

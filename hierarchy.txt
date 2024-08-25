@@ -1,0 +1,16 @@
+/ root
+|---/ client (react project hosted on vercel, no need to worry about this)
+|---/ src (main express.js folder)
+    |--- index.js (main file)
+    |--- /scraper
+         |--- main.py (sonar-scanner is called here)
+         |--- /.venv (ignored in .gitignore)
+         |--- requirements.txt
+         |--- .env (environment variables for main.py)
+    |--- /db
+         |--- config.js (postgres config)
+    |---/routes
+        |---api.js (all the api calls)
+|--- .env(ignored in .gitignore)
+|--- package.json (express and node.js packages)
+|--- .gitignore
