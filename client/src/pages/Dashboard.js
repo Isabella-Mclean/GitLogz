@@ -30,7 +30,7 @@ function Dashboard() {
             <Box className={styles.bottomNavbar}>
                 <Toolbar sx={{ justifyContent: 'flex-start', pl: 2 }}>
                     {/**Drop down menu for users to choose the repo they would like to view */}
-                    <FormControl className={styles.dropDown} style={{minWidth:"20vw", marginRight:"25px"}}>
+                    <FormControl className={styles.dropDown} style={{minWidth:"20vw", marginRight:"25px" }}>
                         <InputLabel className={styles.bootstrapInputLabel}>Repository</InputLabel>
                         <Select
                         value={repository}
@@ -61,7 +61,7 @@ function Dashboard() {
             
             {/** Main dashboard area */}
             <Box className={styles.analysis}>
-                <Typography className={styles.dashboardTitle}>Repository Dashboard</Typography>
+                <Typography variant='h6' className={styles.dashboardTitle} gutterBottom>Repository Dashboard</Typography>
                 {/**First two rows utilize a grid with no spacing, bottom row is a separate box*/}
                 <Grid container rowGap={10}  className={styles.gridContainer}>
                     <Grid item xs={12} sm={6} md={4} lg={3}>
