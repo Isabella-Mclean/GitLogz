@@ -1,11 +1,23 @@
 'use client';
-import { Box, Typography, AppBar, Toolbar, Grid, Card, CardContent, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import {React, useState} from 'react';
+import { Box,Button, Typography, AppBar, Toolbar, Grid, Card, CardContent, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {React, useEffect, useState} from 'react';
 import styles from '../css/Dashboard.module.css';
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from 'react-router-dom';
+
 
 function Dashboard() {
     const [repository, setRepository]  = useState('')
     const [branch, setBranch]  = useState('')
+    const { logout,user, isAuthenticated, isLoading } = useAuth0();
+    const navigate = useNavigate();
+
+    useEffect(() =>{
+        if(!isLoading && !isAuthenticated){
+            {/**If the page has loaded and the user is not authenticated, send them to the home page */}
+            navigate('/');
+        }
+    },[isLoading, isAuthenticated, navigate]);
 
     {/**Should handle the change of the repository in the menu */}
     const handleChangeRepo = () =>{
@@ -17,12 +29,16 @@ function Dashboard() {
         console.log("Branch")
     }
 
+    
     return (
         <Box className={styles.mainApp}>
             {/** Navbar at the top of the window */}
             <AppBar position="fixed" className={styles.topNavbar}>
                 <Toolbar sx={{ justifyContent: 'flex-start', pl: 2 }}>
                     <Typography>GitLogz</Typography>
+                    <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                        Log out
+                    </Button>
                 </Toolbar>
             </AppBar>
             

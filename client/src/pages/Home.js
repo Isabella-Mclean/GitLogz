@@ -6,6 +6,7 @@ import { StarsBackground } from "../components/ui/stars-background.tsx";
 import { doc, collection, getDoc, setDoc } from "firebase/firestore"; 
 import {db} from "../firebase.js"
 import {Box, Typography, Stack, AppBar, Toolbar, Button, Grid, Card, CardContent,Snackbar, Alert} from '@mui/material';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Home() {
   const [email, setEmail] = useState('');
@@ -15,6 +16,9 @@ function Home() {
 
   
   const handleEmailChange = (e) => setEmail(e.target.value);
+
+  const { loginWithRedirect } = useAuth0();
+  
 
   {/* Handles the submission of user emails for the waitlist */}
   const handleFormSubmit = async (e) => {
@@ -55,10 +59,10 @@ function Home() {
         <Box>
         <AppBar position="fixed" sx={{ background: 'transparent', boxShadow: 'none' }}>
             <Toolbar sx={{ justifyContent: 'flex-end', pl:2}}>
-              <Button variant="text" className="Button">
-                  <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Sign in</Typography>
+              <Button variant="text" >
+                  <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Sign up</Typography>
               </Button>
-              <Button variant="text">
+              <Button variant="text" onClick={() => loginWithRedirect()}>
                   <Typography variant="h6" sx={{ color: 'white', mx: 2 }}>Log in</Typography>
               </Button>
             </Toolbar>
