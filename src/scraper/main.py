@@ -2,6 +2,8 @@ import os
 import sys
 import tempfile
 import argparse
+import requests
+from requests.auth import HTTPBasicAuth
 from git import Repo, GitCommandError
 import json
 import subprocess
@@ -59,6 +61,25 @@ def get_commit_history(repo_path):
     
     return commit_data_list
 
+def fetch_sonar_metrics(sonar_host_url, sonar_project_key):
+    """Fetch metrics from SonarQube API."""
+    url = f"{sonar_host_url}/api/measures/component"
+    component = sonar_project_key
+    metrics = "coverage,violations,code_smells,bugs,vulnerabilities"
+    user = os.getenv('SONAR_USER')
+    password = os.getenv('SONAR_PASSWORD')
+    
+    try:
+        response = requests.get(f"{url}?component={component}&metricKeys={metrics}",
+                                auth=HTTPBasicAuth(user, password))
+        response.raise_for_status()
+        metrics_data = response.json()
+        print(json.dumps(metrics_data, indent=4))
+        return metrics_data
+    except requests.exceptions.RequestException as e:
+        print(json.dumps({"error": f"Failed to retrieve analysis results: {e}"}))
+        sys.exit(1)
+
 def run_sonar_scanner(repo_path):
     """Run SonarQube Scanner on the cloned repository."""
     sonar_host_url = os.getenv('SONAR_HOST_URL')
@@ -101,9 +122,28 @@ sonar.token={sonar_token}
         output = result.stdout.decode().strip()
         json_output = {"sonar_scanner_output": output}
         print(json.dumps(json_output))
+        
+        metrics = fetch_sonar_metrics(sonar_host_url, sonar_project_key)
+        return metrics
     except subprocess.CalledProcessError as e:
         error_output = e.stderr.decode().strip()
         print(json.dumps({"error": error_output}))
+        sys.exit(1)
+
+def fetch_languages(repo_url):
+    """Fetch the languages used in the GitHub repository."""
+    # Extract owner and repo name from the URL
+    parts = repo_url.rstrip('/').split('/')
+    owner, repo_name = parts[-2], parts[-1]
+    api_url = f"https://api.github.com/repos/{owner}/{repo_name}/languages"
+    
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+        languages = response.json()
+        return languages
+    except requests.exceptions.RequestException as e:
+        print(json.dumps({"error": f"Failed to retrieve languages: {e}"}))
         sys.exit(1)
 
 def main():
@@ -118,16 +158,29 @@ def main():
     temp_dir = None
     try:
         repo_path, temp_dir = clone_repo(repo_url)
-        run_sonar_scanner(repo_path)
+        
+        # Run SonarQube scanner and get metrics
+        sonar_metrics = run_sonar_scanner(repo_path)
+        
         commit_history = get_commit_history(repo_path)
         
         if not commit_history:
             print(json.dumps({"error": "No commit history data to save."}))
             sys.exit(1)
 
+        # Fetch languages used in the repository
+        languages = fetch_languages(repo_url)
+
+        # Combine commit history, sonar metrics, and languages
+        final_output = {
+            "commit_history": commit_history,
+            "sonar_metrics": sonar_metrics,
+            "languages": languages
+        }
+
         with open(output_file, 'w') as f:
-            json.dump(commit_history, f, indent=4)
-        print(json.dumps({"commit_history": commit_history}, indent=4))
+            json.dump(final_output, f, indent=4)
+        print(json.dumps(final_output, indent=4))
 
     finally:
         if temp_dir:
