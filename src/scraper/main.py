@@ -74,6 +74,7 @@ def run_sonar_scanner(repo_path):
         os.makedirs(properties_dir)
         print(f"Created directory: {properties_dir}")
 
+    # Path to the SonarQube Scanner executable
     sonar_scanner_path = os.getenv('SONAR_SCANNER_PATH')
 
     try:

@@ -16,7 +16,6 @@ function runCommand(command, callback) {
   });
 }
 
-// Helper function to insert commit data into PostgreSQL
 async function insertCommits(commits) {
   const client = await pool.connect();
   try {
@@ -24,7 +23,13 @@ async function insertCommits(commits) {
     for (const commit of commits) {
       await client.query(
         `INSERT INTO commits (commit_hash, author_name, author_email, date, message, files_changed)
-         VALUES ($1, $2, $3, $4, $5, $6)`,
+         VALUES ($1, $2, $3, $4, $5, $6)
+         ON CONFLICT (commit_hash) DO UPDATE
+         SET author_name = EXCLUDED.author_name,
+             author_email = EXCLUDED.author_email,
+             date = EXCLUDED.date,
+             message = EXCLUDED.message,
+             files_changed = EXCLUDED.files_changed`,
         [
           commit.commit_hash,
           commit.author_name,
