@@ -50,19 +50,15 @@ To install GitLogz, follow these steps:
     ```
 
 ### Postgres Setup
-I'll have to ask you to figure out how to set up Postgres locally on your machine. For the table schema, this is what I have but we might need to change it:
+I'll have to ask you to figure out how to set up Postgres locally on your machine. For the table schema, this is what I have set:
 ```sql
-CREATE TABLE commits (
-  id SERIAL PRIMARY KEY,
-  commit_hash VARCHAR(255) UNIQUE NOT NULL,
-  author_name VARCHAR(255) NOT NULL,
-  author_email VARCHAR(255) NOT NULL,
-  date TIMESTAMP NOT NULL,
-  message TEXT NOT NULL,
-  files_changed JSONB NOT NULL
+CREATE TABLE commit_groups (
+    id SERIAL PRIMARY KEY,
+    repository_url TEXT NOT NULL,
+    analyzed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    commits JSONB NOT NULL
 );
 ```
-Ideally, I think we need to have a github repo link and then an array of the commits.
 
 ## Usage
 To use GitLogz, follow these steps:

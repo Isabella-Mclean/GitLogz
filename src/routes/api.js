@@ -16,34 +16,24 @@ function runCommand(command, callback) {
   });
 }
 
-async function insertCommits(commits) {
+async function insertOrUpdateCommitGroup(repositoryUrl, commits) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
-    for (const commit of commits) {
-      await client.query(
-        `INSERT INTO commits (commit_hash, author_name, author_email, date, message, files_changed)
-         VALUES ($1, $2, $3, $4, $5, $6)
-         ON CONFLICT (commit_hash) DO UPDATE
-         SET author_name = EXCLUDED.author_name,
-             author_email = EXCLUDED.author_email,
-             date = EXCLUDED.date,
-             message = EXCLUDED.message,
-             files_changed = EXCLUDED.files_changed`,
-        [
-          commit.commit_hash,
-          commit.author_name,
-          commit.author_email,
-          commit.date,
-          commit.message,
-          JSON.stringify(commit.files_changed),
-        ]
-      );
-    }
+
+    await client.query(
+      `INSERT INTO commit_groups (repository_url, commits)
+       VALUES ($1, $2)
+       ON CONFLICT (repository_url) DO UPDATE
+       SET commits = EXCLUDED.commits,
+           analyzed_at = CURRENT_TIMESTAMP`,
+      [repositoryUrl, JSON.stringify(commits)]
+    );
+
     await client.query("COMMIT");
   } catch (error) {
     await client.query("ROLLBACK");
-    console.error("Database insert error:", error);
+    console.error("Database insert/update error:", error);
     throw error;
   } finally {
     client.release();
@@ -115,16 +105,17 @@ router.post("/analyze", async (req, res) => {
           });
         }
 
-        // Insert commits into PostgreSQL
+        // Insert or update the group of commits in PostgreSQL
         try {
-          await insertCommits(commitHistory);
+          await insertOrUpdateCommitGroup(url, commitHistory);
           res.json({
-            message: "Commit history successfully inserted into the database",
+            message:
+              "Commit history successfully inserted/updated in the database",
             data: commitHistory,
           });
         } catch (dbError) {
           res.status(500).json({
-            error: "Error inserting commit history into the database",
+            error: "Error inserting/updating commit history in the database",
             details: dbError.message,
           });
         }
